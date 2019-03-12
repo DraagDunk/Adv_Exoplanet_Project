@@ -18,8 +18,9 @@ R = 1
 #r, lum = simple_limb(R)
 
 # Definer arbejdsområde
-x = np.linspace(-1, 1, 501)
-y = np.linspace(-1, 1, 501)
+lim = 301
+x = np.linspace(-1, 1, lim)
+y = np.linspace(-1, 1, lim)
 
 # Lav stjerne
 X = []
@@ -32,21 +33,24 @@ for i in range(len(x)):
             
 X = np.array(X)
 Y = np.array(Y)
-L = R**2-(X**2 + Y**2)
+
+# Limb darkening function:
+mu = np.sqrt(1 - X**2 - Y**2)
+mu[np.where(np.isnan(mu)==True)] = 0
+u1 = 0.6
+u2 = 0
+L = 1 - u1 * (1 - mu) - u2 * (1 - mu)**2
 
 p_rad = rnd.randint(2, 50)/100
 p_b = rnd.randint(0,99)/100
 p_o = rnd.randint(-180, 180)
-svar = [p_rad, p_o, p_b]
-alpha = np.tan((p_o*np.pi)/180)
-beta = p_b/np.cos((p_o*np.pi)/180)*(1+p_rad)
-p_x = np.linspace( -np.sign(beta) * (1 + p_rad), np.sign(beta) * (1 + p_rad), 100)
-move_vector = []
 
-p_y = np.array([])
-for i in p_x:
-    p_y = np.append(p_y, alpha*i+beta)
-            
+init_p_x = np.linspace(-1.5, 1.5, 101)
+init_p_y = np.zeros(101) + p_b
+
+p_x = init_p_x * np.cos(p_o*(np.pi/180)) + init_p_y * np.sin(p_o*(np.pi/180))
+p_y = - init_p_x * np.sin(p_o*(np.pi/180)) + init_p_y * np.cos(p_o*(np.pi/180))
+
 # Plot stjerne
 fig1 = plt.figure()
 ax1 = plt.gca()
@@ -59,6 +63,18 @@ plt.ylabel(r'y [$R_\odot$]')
 plt.axis('equal')
 plt.tight_layout()
 plt.show()
+
+## Plot stjerne med colormap
+#figx = plt.figure()
+#axx = plt.gca()
+#axx.set_facecolor(('black'))
+#plt.scatter(X, Y, c=L, cmap=cm.gray)
+##line1, = ax2.plot(X, Y, 'r,')
+#plt.xlabel(r'x [$R_\odot$]')
+#plt.ylabel(r'y [$R_\odot$]')
+#plt.axis('equal')
+#plt.tight_layout()
+#plt.show()
 
 X_p = []
 Y_p = []
