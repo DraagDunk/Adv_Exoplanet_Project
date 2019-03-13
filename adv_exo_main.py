@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import random as rnd
+from scipy.optimize import curve_fit
 
 plt.close('all')
 
@@ -18,7 +19,7 @@ R = 1
 #r, lum = simple_limb(R)
 
 # Definer arbejdsområde
-lim = 301
+lim = 401
 x = np.linspace(-1, 1, lim)
 y = np.linspace(-1, 1, lim)
 
@@ -41,13 +42,14 @@ u1 = 0.6
 u2 = 0
 L = 1 - u1 * (1 - mu) - u2 * (1 - mu)**2
 
+# Definér planetparametre 
 p_rad = rnd.randint(2, 50)/100
 p_b = rnd.randint(0,99)/100
 p_o = rnd.randint(-180, 180)
 
+# Byg vektorer af x- og -ykoordinater af planet
 init_p_x = np.linspace(-1.5, 1.5, 101)
 init_p_y = np.zeros(101) + p_b
-
 p_x = init_p_x * np.cos(p_o*(np.pi/180)) + init_p_y * np.sin(p_o*(np.pi/180))
 p_y = - init_p_x * np.sin(p_o*(np.pi/180)) + init_p_y * np.cos(p_o*(np.pi/180))
 
@@ -68,7 +70,7 @@ plt.show()
 #figx = plt.figure()
 #axx = plt.gca()
 #axx.set_facecolor(('black'))
-#plt.scatter(X, Y, c=L, cmap=cm.gray)
+#plt.scatter(X, Y, marker=',', c=L, cmap=cm.gray)
 ##line1, = ax2.plot(X, Y, 'r,')
 #plt.xlabel(r'x [$R_\odot$]')
 #plt.ylabel(r'y [$R_\odot$]')
@@ -76,6 +78,7 @@ plt.show()
 #plt.tight_layout()
 #plt.show()
 
+# Byg X og Y værdier af stjernen for hvert bevægelsesskridt af planeten
 X_p = []
 Y_p = []
 L_p = []
@@ -90,6 +93,7 @@ X_p = np.array(X_p)
 Y_p = np.array(Y_p)
 L_p = np.array(L_p)
 
+# Kollaps lysstyrke fra stjernen ned på x-aksen i histogram.
 L_sum_p = []
 for i in range(len(X_p)):
     L_sum = []
@@ -97,20 +101,35 @@ for i in range(len(X_p)):
         L_sum.append(sum(L_p[i][np.where(X_p[i]==j)]))
     L_sum = np.array(L_sum)
     L_sum_p.append(L_sum)
-    
 L_sum_p = np.array(L_sum_p)
+
+# Giv hver x-værdi en RV-hastighed.
+RV_amp = 2 # km/s
+RV_x = RV_amp * x/R
+
+# For hver indgang i luminositetsobjektet, fit til en gausskurve
+def gauss_func(x, a, b, c):
+    return a * np.exp(-((x - b)**2)/(2 * c**2))
+gaussians = []
+centroids = []
+for i in range(len(p_x)):
+    f, fs = curve_fit(gauss_func, RV_x, L_sum_p[i])
+    gaussians.append(f)
+    centroids.append(f[1])
 
 # Kollaps y-akse
 fig2 = plt.figure()
 ax3 = fig2.add_subplot(111)
-line2, = ax3.plot(x, L_sum_p[0], 'r-')
-plt.xlabel(r'x [$R_\odot$]')
+line2, = ax3.plot(RV_x, L_sum_p[0], 'k-')
+line3, = ax3.plot(RV_x, gauss_func(RV_x, *gaussians[0]), 'r-')
+plt.xlabel('RV [km/s]')
 plt.ylabel('Luminosity [unit]')
-plt.ylim([0,350])
-plt.xlim([-1, 1])
+plt.ylim([0,1.1*max(L_sum_p[0])])
+plt.xlim([-RV_amp, RV_amp])
 plt.tight_layout()
 plt.show()
 
+# Opdatér plots
 for i in range(len(X_p)):
     line1.set_xdata(X_p[i])
     line1.set_ydata(Y_p[i])
@@ -118,7 +137,17 @@ for i in range(len(X_p)):
     fig1.canvas.flush_events()
     line2.set_ydata(L_sum_p[i])
     fig2.canvas.draw()
+    line3.set_ydata(gauss_func(RV_x, *gaussians[i]))
     fig2.canvas.flush_events()
+    
+# Plot Rossiter-McLaughlin kurve
+plt.figure()
+plt.plot(range(len(p_x)), centroids, 'k-')
+plt.title('Rossiter-McLaughlin curve')
+plt.xlabel('Step')
+plt.ylabel('RV [km/s]')
+plt.tight_layout()
+plt.show()
 
 #%% TODO liste
 
