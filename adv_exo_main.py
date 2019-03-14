@@ -43,13 +43,22 @@ u2 = 0
 L = 1 - u1 * (1 - mu) - u2 * (1 - mu)**2
 
 # Definér planetparametre 
-p_rad = rnd.randint(2, 50)/100
+p_rad = rnd.randint(2, 50)*R/100
 p_b = rnd.randint(0,99)/100
 p_o = rnd.randint(-180, 180)
+p_a = rnd.randint(20,1000)*R/10
+p_e = 0
+#rnd.randint(0,90)/100
+p_i = np.pi/2
+p_omega = np.pi/2
+nu_max = np.arcsin(R*(1.1+p_rad/R)/p_a)
+p_nu = np.linspace(-nu_max, nu_max, 101)
+r_orb = p_a*(1-p_e**2)/(1+p_e*np.cos(p_nu))
 
 # Byg vektorer af x- og -ykoordinater af planet
-init_p_x = np.linspace(-1.5, 1.5, 101)
-init_p_y = np.zeros(101) + p_b
+init_p_x = -r_orb*np.cos(p_omega + p_nu)
+init_p_y = -r_orb*np.sin(p_omega + p_nu)*np.cos(p_i) + p_b
+
 p_x = init_p_x * np.cos(p_o*(np.pi/180)) + init_p_y * np.sin(p_o*(np.pi/180))
 p_y = - init_p_x * np.sin(p_o*(np.pi/180)) + init_p_y * np.cos(p_o*(np.pi/180))
 
