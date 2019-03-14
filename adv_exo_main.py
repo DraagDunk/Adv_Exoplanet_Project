@@ -20,8 +20,8 @@ R = 1
 
 # Definer arbejdsområde
 lim = 401
-x = np.linspace(-1, 1, lim)
-y = np.linspace(-1, 1, lim)
+x = np.linspace(-R, R, lim)
+y = np.linspace(-R, R, lim)
 
 # Lav stjerne
 X = []
@@ -55,7 +55,7 @@ nu_max = np.arcsin(R*(1.1+p_rad/R)/p_a)
 p_nu = np.linspace(-nu_max, nu_max, 101)
 r_orb = p_a*(1-p_e**2)/(1+p_e*np.cos(p_nu))
 
-# Byg vektorer af x- og -ykoordinater af planet
+# Byg vektorer af x- og y-koordinater af planet
 init_p_x = -r_orb*np.cos(p_omega + p_nu)
 init_p_y = -r_orb*np.sin(p_omega + p_nu)*np.cos(p_i) + p_b
 
@@ -160,7 +160,4 @@ plt.show()
 
 #%% TODO liste
 
-# Implement color/rotation
-# Create RM diagram
 # Implement as function of obliquity, rotation, planet radius & impact parameter
-# Allersidst: Animér RM diagram
