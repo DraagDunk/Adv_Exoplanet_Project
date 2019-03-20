@@ -16,7 +16,6 @@ plt.close('all')
 
 # Give stjerneparametre
 R = 1
-#r, lum = simple_limb(R)
 
 # Definer arbejdsområde
 lim = 401
@@ -161,3 +160,4 @@ plt.show()
 #%% TODO liste
 
 # Implement as function of obliquity, rotation, planet radius & impact parameter
+# 
