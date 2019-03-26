@@ -12,13 +12,13 @@ from scipy.optimize import curve_fit
 
 # Inputs:
 #   time: days
-#   semimajor axis: AU
+#   semimajor axis: stellar radii
 #   mass: solar mass
 #   obliquity: degrees
 #   inclination: degrees
 #   argument of periapsis: degrees
 #   RV amplitude: km/s
-def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, b, i, omega, RV_amp):
+def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, b, incl, omega, RV_amp, lim=401, return_grid=False):
     
     # Define values
     G = 6.647 * 10**(-11) # m³ kg⁻¹ s⁻²
@@ -26,12 +26,12 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, b, i, omega, RV_amp):
     # Recalculate parameters
     m1 = m1 * 2 * 10**30 # kg/m_sun
     m2 = m2 * 2 * 10**30 # kg/m_sun
-    a = a * 149597871 # km/AU
+    a = a * R # R_star
     t = t * 24 * 60**2 # s/days
     t_p = t_p * 24 * 60**2 # s/days
     obl = obl * (np.pi/180) # rad/deg
     omega = omega * (np.pi/180) # rad/deg
-    i = i * (np.pi/180) # rad/deg
+    incl = incl * (np.pi/180) # rad/deg
     RV_amp = RV_amp * 1000 # m/km
     
     # Calculate mean anomaly
@@ -55,8 +55,8 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, b, i, omega, RV_amp):
     r = a*(1-e**2)/(1+e*np.cos(nu))
     
     # Build vectors of x- and y-coordinates of the planet
-    init_p_x = -r/R*np.cos(omega + nu)
-    init_p_y = -r/R*np.sin(omega + nu)*np.cos(i) + b
+    init_p_x = -r*np.cos(omega + nu)
+    init_p_y = -r*np.sin(omega + nu)*np.cos(incl)
 
     p_x = init_p_x * np.cos(obl) + init_p_y * np.sin(obl)
     p_y = - init_p_x * np.sin(obl) + init_p_y * np.cos(obl)
@@ -128,15 +128,18 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, b, i, omega, RV_amp):
         gaussians.append(f)
         centroids.append(f[1])
     
-    return centroids
+    if return_grid == False:
+        return centroids
+    elif return_grid == True:
+        return centroids, gaussians, X, Y, RV_amp, RV_x, L_sum_p, X_p, Y_p
 
-t = np.linspace(-1,1, 200)
-# t, t_p, a, e, m1, m2, rad_rat, obl, b, i, omega, RV_amp
-RV = rm_function(t, 0, 0.1, 0.1, 1, 0.001, 0.5, 0, 0, 90, 0, 40)
-
-plt.figure()
-plt.plot(t, RV, 'k-')
-plt.xlabel('time [days]')
-plt.ylabel('RV [km/s]')
-plt.tight_layout()
-plt.show()
+#t = np.linspace(-1,1, 200)
+## t, t_p, a, e, m1, m2, rad_rat, obl, b, i, omega, RV_amp
+#RV = rm_function(t, 0, 2, 0.1, 1, 0.001, 0.5, 90, 0, 90, 0, 40)
+#
+#plt.figure()
+#plt.plot(t, RV, 'k-')
+#plt.xlabel('time [days]')
+#plt.ylabel('RV [km/s]')
+#plt.tight_layout()
+#plt.show()
