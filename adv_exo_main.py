@@ -25,10 +25,20 @@ plt.close('all')
 #   RV amplitude: km/s
 
 # Kald rm_function med følgende parametre:
-# t, t_p, a, e, m1, m2, rad_rat, obl, b, incl, omega, RV_amp
+# t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp
 
-t = np.linspace(-0.3,0.3, 200)
-centroids, gaussians, X, Y, RV_amp, RV_x, L_sum_p, X_p, Y_p = rm_function(t, 0, 3, 0.001, 1, 0.001, 0.1, 0, 0, 80, 0, 2, return_grid=True)
+t = np.linspace(-0.05,0.05, 200)
+t_p = 0
+a = rnd.randint(20, 100)/10
+e = rnd.randint(0,30)/100
+m1 = rnd.randint(10,100)/10
+m2 = rnd.randint(1,1000)/1000
+rad_rat = rnd.randint(1,100)/200
+obl = rnd.randint(-180, 180)
+incl = rnd.randint(80, 100)
+omega = 90
+RV_amp = rnd.randint(0,1000)/10
+centroids, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_grid=True)
 
 ## Give stjerneparametre
 #R = 1
@@ -84,8 +94,8 @@ ax1.set_facecolor(('black'))
 ax2 = fig1.add_subplot(111)
 #line1 = ax2.scatter(X, Y, c=L, cmap=cm.gray)
 line1, = ax2.plot(X, Y, 'r,')
-plt.xlabel(r'x [$R_\odot$]')
-plt.ylabel(r'y [$R_\odot$]')
+plt.xlabel(r'x [km]')
+plt.ylabel(r'y [km]')
 plt.axis('equal')
 plt.tight_layout()
 plt.show()
@@ -144,8 +154,8 @@ def gauss_func(x, a, b, c):
 # Kollaps y-akse
 fig2 = plt.figure()
 ax3 = fig2.add_subplot(111)
-line2, = ax3.plot(RV_x, L_sum_p[0], 'k-')
-line3, = ax3.plot(RV_x, gauss_func(RV_x, *gaussians[0]), 'r-')
+line2, = ax3.plot(RV_x/1000, L_sum_p[0], 'k-')
+line3, = ax3.plot(RV_x/1000, gauss_func(RV_x, *gaussians[0]), 'r-')
 plt.xlabel('RV [km/s]')
 plt.ylabel('Luminosity [unit]')
 plt.ylim([0,1.1*max(L_sum_p[0])])
