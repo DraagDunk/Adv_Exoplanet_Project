@@ -1,0 +1,31 @@
+https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=pl_tranflag,pl_hostname,pl_name,pl_pnum,pl_orbper,
+pl_orbsmax,pl_orbeccen,pl_orbincl,ra,dec,st_optmag,
+st_optband,st_mass,st_rad,pl_orbtper,pl_massj,
+pl_msinij,pl_trandep,pl_trandur,pl_tranmid,st_radv,st_vsini,
+st_nplc,pl_radj
+
+
+0	pl_tranflag	Flag for if the planet transits
+1	pl_hostname	Name of the planet-hosting star
+2	pl_name		Name of the planet
+3	pl_pnum		Number of planets in the system
+4	pl_orbper	Orbital period of the planet(days)
+5	pl_orbsmax	Semimajor axis of orit(AU)
+6	pl_orbeccen	Orbital eccentricity
+7	pl_orbincl	Orbital inclination(degrees)
+8	ra		Rektascension of the system(decimal degrees)
+9	dec		Declination of the system(decimal degrees)
+10	st_optmag	Optical magnitude of the system(mag)
+11	st_optband	Band used in measuring optmag(kepler or V)
+12	st_mass		Stellar mass(sun mass)
+13	st_rad		Stellar radius(Sun radius)
+14	pl_orbtper	Time of periastron(JD)
+15	pl_massj	Planet mass(Jupiter mass)
+16	pl_msinij	Planet msin(i)(Jupiter mass)
+17	pl_trandep	Transit depth(percent)
+18	pl_trandur	Transit duration(days)
+19	pl_tranmid	Mid-transit time(JD)
+20	st_radv		Stellar radial velocity(km/s)
+21	st_vsini	Stellar rotational velocity, vsin(i)(km/s)
+22	st_nplc		Number of planet transit light curves
+23	pl_radj		Planet radius(Jupiter Radius)
