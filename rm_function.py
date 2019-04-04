@@ -23,7 +23,7 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
     # Define values
     G = 6.647 * 10**(-11) # m³ kg⁻¹ s⁻²
     R = 695510000 # m
-    # Recalculate parameters
+    # Recalculate parameters(enheder er på omregningsfaktorer)
     m1 = m1 * 2 * 10**30 # kg/m_sun
     m2 = m2 * 2 * 10**30 # kg/m_sun
     a = a * R # R_star
@@ -129,15 +129,20 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
         return a * np.exp(-((x - b)**2)/(2 * c**2))
     gaussians = []
     centroids = []
+    centroids_avg = []
     for i in range(len(p_x)):
         f, fs = curve_fit(gauss_func, RV_x, L_sum_p[i])
         gaussians.append(f)
         centroids.append(f[1])
-    
+        avg_centroid = np.sum(RV_amp*X_p[i]/R)/len(X_p[i])
+        centroids_avg.append(avg_centroid)
+    centroids = np.array(centroids)
+    centroids_avg = np.array(centroids_avg)
+        
     if return_grid == False:
-        return centroids
+        return centroids, centroids_avg
     elif return_grid == True:
-        return centroids, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p
+        return centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p
 
 #t = np.linspace(-1,1, 200)
 ## t, t_p, a, e, m1, m2, rad_rat, obl, i, omega, RV_amp

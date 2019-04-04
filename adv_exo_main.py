@@ -33,12 +33,12 @@ a = rnd.randint(20, 100)/10
 e = rnd.randint(0,30)/100
 m1 = rnd.randint(10,100)/10
 m2 = rnd.randint(1,1000)/1000
-rad_rat = rnd.randint(1,100)/200
+rad_rat = 0.1 #rnd.randint(1,100)/200
 obl = rnd.randint(-180, 180)
 incl = rnd.randint(80, 100)
 omega = 90
 RV_amp = rnd.randint(0,1000)/10
-centroids, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_grid=True)
+centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_grid=True)
 
 ## Give stjerneparametre
 #R = 1
@@ -155,11 +155,13 @@ def gauss_func(x, a, b, c):
 fig2 = plt.figure()
 ax3 = fig2.add_subplot(111)
 line2, = ax3.plot(RV_x/1000, L_sum_p[0], 'k-')
-line3, = ax3.plot(RV_x/1000, gauss_func(RV_x, *gaussians[0]), 'r-')
+line3, = ax3.plot(RV_x/1000, gauss_func(RV_x, *gaussians[0]), 'r-', label="Gaussian")
+line4, = ax3.plot([0,0], [0, 1.1*max(L_sum_p[0])],'b--', label="CoM")
 plt.xlabel('RV [km/s]')
 plt.ylabel('Luminosity [unit]')
 plt.ylim([0,1.1*max(L_sum_p[0])])
 plt.xlim([-RV_amp, RV_amp])
+plt.legend()
 plt.tight_layout()
 plt.show()
 
@@ -173,13 +175,17 @@ for i in range(len(X_p)):
     fig2.canvas.draw()
     line3.set_ydata(gauss_func(RV_x, *gaussians[i]))
     fig2.canvas.flush_events()
+    line4.set_xdata([centroids_avg[i]/1000, centroids_avg[i]/1000])
+    fig2.canvas.flush_events()
     
 # Plot Rossiter-McLaughlin kurve
 plt.figure()
-plt.plot(t, centroids, 'k-')
+plt.plot(t, centroids, 'k-', label="Gaussian")
+plt.plot(t,centroids_avg,'r-', label="CoM")
 plt.title('Rossiter-McLaughlin curve')
 plt.xlabel('Time')
 plt.ylabel('RV [m/s]')
+plt.legend()
 plt.tight_layout()
 plt.show()
 
