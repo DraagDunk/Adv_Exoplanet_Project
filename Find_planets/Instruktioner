@@ -1,0 +1,48 @@
+To change from main.f90
+
+1) integer, parameter :: KOI_nr = 9
+Here you should change the number 9 for the number of stars you have in the file_input_STARS
+
+2)
+     double precision, dimension(4), parameter :: LAT = (/-31.5983/)
+     double precision, dimension(4), parameter :: LON = (/295.4533/)
+     double precision, dimension(4), parameter :: H = (/1350/)
+
+Update to latitude, longitude and altitude of Argentinian observatories Bosque Alegre in Cordoba, and CASLEO in San Juan.
+
+H is in meters, and both latitude and longitude are in degrees. Longitude is measured negative towards west, Argentina for example is around -71, so you can do 360 - 71 and put that number into longitude. But please get the coordinates from google right ;-)
+
+
+Attached you can find a compressed file with everything you need AND a running example :-)
+Test it first with 2 stars because it will take a loooooong time.
+
+
+Run:
+python dates.py
+for each one of your found stars. Output files should be called "star.BJD", where "star" is the name of each one of your stars.
+
+
+Create two files:
+
+file_input_STARS:
+
+This is a file with the name of the files of the stars. Each one should contain the following information:
+1   WZ_Pic  5.84   85.304625  -57.44116   9.20   WZ_Pic.BJD
+
+Description:
+
+1: flag, not important, keep it to 1.
+2: Name of the star, without white spaces.
+3: Eclipse duration in hours.
+4: Right ascention in degrees
+5: Declination in degrees
+6: Magnitude of the star
+7: BJD output file name.
+
+The second file should be:
+file_input_BJD
+
+Here you should have the names of the .BJDs generated at the beginning.
+Once everything is set, you run the main script typing: ./main.sh
+
+

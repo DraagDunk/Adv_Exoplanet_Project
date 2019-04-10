@@ -1,0 +1,29 @@
+YZ_AntYZ_Antimport numpy as np
+
+BJDo = 2458209.5 #01.04.2018
+BJDf = 2458727.5 #01.09.2019
+
+# MODIFY ONLY THIS PART!! ############################################ 
+# Enter your To's, period, and output file name. This should be the
+# name of your star without white spaces and should end with .BJD.
+######################################################################
+
+To = 2452501.59
+per = 3.667874
+file_out = 'KV_Pup.BJD'
+
+######################################################################
+# Don't change the rest.
+To_up = To + round( (BJDo - To)/per)*per - per
+
+f = open(file_out, 'w')
+
+for j in range(1000):
+    To_int = To_up + per*j
+    if (To_int > BJDo):
+        if (To_int < BJDf):
+            f.write(str(j)+'   '+str(To_int)+'   \n')
+
+
+f.close()
+
