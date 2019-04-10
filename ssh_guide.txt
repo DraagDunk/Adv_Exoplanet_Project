@@ -1,7 +1,10 @@
 For almindelig adgang:
  ssh [nfit_userid]@ast1d.phys.au.dk
 
-For at mounte, stå i forældremappe til "Remote" mappen
+For at mounte, stå i forældremappe til "Remote" mappen:
  sshfs [nfit_userid]@ast1d.phys.au.dk:/usr/users/jesperdk/ ./Remote
+
+For at unmounte:
+ sudo umount ./Remote
 
 PUT IKKE REMOTE MAPPEN I MAPPEN DU PUSHER TIL GITHUB!!
