@@ -111,6 +111,19 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
     Y_p = np.array(Y_p)
     L_p = np.array(L_p)
 
+    # Give every x-value an RV-value
+    tail_x = np.linspace(-(1201/401) * R, (1201/401) * R, 1201)
+    RV_x = (RV_amp * tail_x/R)
+    
+    # Create gaussian from microturbulence and instrumental error
+    def alt_gauss(x, FWHM):
+        return FWHM**(-1) * ((4 * np.log(2))/np.pi)**(1/2) * np.exp(-(4 * np.log(2) * x**2)/(FWHM**2))
+
+    sigma_micro = 2000
+    sigma_inst = 2500
+    FWHM = np.sqrt(sigma_micro**2 + sigma_inst**2)
+    conv_func = alt_gauss(RV_x, FWHM)
+    
     # Collapse luminosity along x-axis into a histogram
     L_sum_p = []
     for i in range(len(X_p)):
@@ -118,11 +131,11 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
         for j in x:
             L_sum.append(sum(L_p[i][np.where(X_p[i]==j)]))
         L_sum = np.array(L_sum)
-        L_sum_p.append(L_sum)
+        # Add zeros to both ends of L_sum
+        L_sum = np.hstack((np.zeros(400), L_sum, np.zeros(400)))
+        L_fin = np.convolve(L_sum, conv_func, mode='same')
+        L_sum_p.append(L_fin)
     L_sum_p = np.array(L_sum_p)
-
-    # Give every x-value an RV-value
-    RV_x = RV_amp * x/R
 
     # Fit every list in luminosity object to a gaussian
     def gauss_func(x, a, b, c):
@@ -131,7 +144,7 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
     centroids = []
     centroids_avg = []
     for i in range(len(p_x)):
-        f, fs = curve_fit(gauss_func, RV_x, L_sum_p[i])
+        f, fs = curve_fit(gauss_func, RV_x, L_sum_p[i], p0=[12, 0, 50])
         gaussians.append(f)
         centroids.append(f[1])
         avg_centroid = np.sum(RV_amp*X_p[i]/R)/len(X_p[i])
