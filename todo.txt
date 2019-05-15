@@ -1,0 +1,10 @@
+Normer til out-of-transit CCF
+ Lav gennemsnitlig CCF fra CCF'er uden for transit, og træk denne fra alle CCF'er
+
+træk lineært fit til out-of-transit fra anden nats transit
+
+Plot CCF'er over hinanden i grå-skala (eller pink): x - velocity, y - tid, skala - norm(CCF)
+
+Fit gauss til in-transit CCF'er
+
+Få model til at give planetskygge velocity, som kan fittes til
