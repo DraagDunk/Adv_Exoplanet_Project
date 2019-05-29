@@ -33,7 +33,7 @@ for i in tqdm(range(len(lines))):
     fit, pov = curve_fit(gauss, vel_vector, lines[i])
     if i == 6:
         plt.figure()
-        plt.plot(vel_vector, lines[i], 'r.', label='Data')
+        plt.plot(vel_vector, lines[i], 'r-', label='Data')
         plt.plot(np.linspace(-200, 200, 1000), gauss(np.linspace(-200, 200, 1000), *fit), 'b--', label='Gaussian fit')
         plt.xlabel('Velocity [km/s]')
         plt.ylabel('CCF')
