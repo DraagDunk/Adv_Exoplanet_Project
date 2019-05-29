@@ -18,7 +18,7 @@ from scipy.optimize import curve_fit
 #   inclination: degrees
 #   argument of periapsis: degrees
 #   RV amplitude: km/s
-def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401, return_grid=False):
+def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401, return_option=2):
     
     # Define values
     G = 6.647 * 10**(-11) # m³ kg⁻¹ s⁻²
@@ -95,6 +95,9 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
     X_p = []
     Y_p = []
     L_p = []
+    
+    X_dark = []
+    L_dark = []
     for i in range(len(p_x)):
         if p_z[i] >= 0:
             X_planet = X[np.where((X-p_x[i])**2+(Y-p_y[i])**2>p_rad**2)]
@@ -103,13 +106,23 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
             Y_p.append(Y_planet)
             L_planet = L[np.where((X-p_x[i])**2+(Y-p_y[i])**2>p_rad**2)]
             L_p.append(L_planet)
+            # Build luminosity behind planet
+            X_behind = X[np.where((X-p_x[i])**2+(Y-p_y[i])**2<p_rad**2)]
+            X_dark.append(X_behind)
+            L_behind = L[np.where((X-p_x[i])**2+(Y-p_y[i])**2<p_rad**2)]
+            L_dark.append(L_behind)
         elif p_z[i] < 0:
             X_p.append(X)
             Y_p.append(Y)
             L_p.append(L)
+            X_dark.append(X)
+            L_dark.append(np.zeros(X.shape))
     X_p = np.array(X_p)
     Y_p = np.array(Y_p)
     L_p = np.array(L_p)
+    
+    X_dark = np.array(X_dark)
+    L_dark = np.array(L_dark)
 
     # Give every x-value an RV-value
     tail_x = np.linspace(-(1201/401) * R, (1201/401) * R, 1201)
@@ -126,16 +139,24 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
     
     # Collapse luminosity along x-axis into a histogram
     L_sum_p = []
+    L_sum_dark = []
     for i in range(len(X_p)):
         L_sum = []
+        dark_sum = []
         for j in x:
             L_sum.append(sum(L_p[i][np.where(X_p[i]==j)]))
+            dark_sum.append(sum(L_dark[i][np.where(X_dark[i]==j)]))
         L_sum = np.array(L_sum)
+        dark_sum = np.array(dark_sum)
         # Add zeros to both ends of L_sum
         L_sum = np.hstack((np.zeros(400), L_sum, np.zeros(400)))
+        dark_sum = np.hstack((np.zeros(400), dark_sum, np.zeros(400)))
         L_fin = np.convolve(L_sum, conv_func, mode='same')
+        dark_fin = np.convolve(dark_sum, conv_func, mode='same')
         L_sum_p.append(L_fin)
+        L_sum_dark.append(dark_fin)
     L_sum_p = np.array(L_sum_p)
+    L_sum_dark = np.array(L_sum_dark)
 
     # Fit every list in luminosity object to a gaussian
     def gauss_func(x, a, b, c):
@@ -151,11 +172,27 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
         centroids_avg.append(avg_centroid)
     centroids = np.array(centroids)
     centroids_avg = np.array(centroids_avg)
+    
+    d_gaussians = []
+    d_centroids = []
+    d_centroids_avg = []
+    for i in range(len(p_x)):
+        df, dfs = curve_fit(gauss_func, RV_x, L_sum_dark[i], p0=[12, 0, 50])
+        d_gaussians.append(df)
+        d_centroids.append(df[1])
+        d_avg_centroid = np.sum(RV_amp*X_dark[i]/R)/len(X_dark[i])
+        d_centroids_avg.append(d_avg_centroid)
+    d_centroids = np.array(d_centroids)
+    d_centroids_avg = np.array(d_centroids_avg)
         
-    if return_grid == False:
+    if return_option == 0:
         return centroids, centroids_avg
-    elif return_grid == True:
+    elif return_option == 1:
         return centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p
+    elif return_option == 2:
+        return d_centroids, d_centroids_avg
+    elif return_option == 3:
+        return d_centroids, d_centroids_avg, d_gaussians, X, Y, RV_x, L_sum_dark, X_p, Y_p
 
 #t = np.linspace(-1,1, 200)
 ## t, t_p, a, e, m1, m2, rad_rat, obl, i, omega, RV_amp

@@ -38,7 +38,9 @@ obl = rnd.randint(-180, 180)
 incl = rnd.randint(80, 100)
 omega = 90
 RV_amp = rnd.randint(0,100)/10
-centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_grid=True)
+#centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_option=1)
+#centroids, centroids_avg = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_option=2)
+centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_option=3)
 
 ## Give stjerneparametre
 #R = 1
@@ -159,7 +161,7 @@ line3, = ax3.plot(RV_x/1000, gauss_func(RV_x, *gaussians[0]), 'r--', label="Gaus
 line4, = ax3.plot([0,0], [0, 1.2*max(L_sum_p[0])],'b--', label="CoM")
 plt.xlabel('RV [km/s]')
 plt.ylabel('Luminosity [unit]')
-plt.ylim([0,1.2*max(L_sum_p[0])])
+plt.ylim([0,1.2*np.max(L_sum_p)])
 plt.xlim([-801/401 * RV_amp, 801/401 * RV_amp])
 plt.legend()
 plt.tight_layout()
@@ -190,13 +192,13 @@ plt.tight_layout()
 plt.show()
 
 # Plot transit curve
-plt.figure()
-plt.plot(t/24, np.sum(L_sum_p, axis=1)/np.sum(L_sum_p[0,:]), 'k-')
-plt.title('Transit Curve')
-plt.xlabel('Time [hours]')
-plt.ylabel('Normalized luminosity')
-plt.tight_layout()
-plt.show()
+#plt.figure()
+#plt.plot(t/24, np.sum(L_sum_p, axis=1)/np.sum(L_sum_p[0,:]), 'k-')
+#plt.title('Transit Curve')
+#plt.xlabel('Time [hours]')
+#plt.ylabel('Normalized luminosity')
+#plt.tight_layout()
+#plt.show()
 
 #%% TODO liste
 

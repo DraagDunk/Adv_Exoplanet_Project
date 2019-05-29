@@ -8,3 +8,8 @@ Plot CCF'er over hinanden i grå-skala (eller pink): x - velocity, y - tid, skal
 Fit gauss til in-transit CCF'er
 
 Få model til at give planetskygge velocity, som kan fittes til
+
+
+lines1 = lines[np.where(bjd < TID),:]
+
+OTlines_1 = np.vstack( (1, 2) )
