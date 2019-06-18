@@ -26,6 +26,9 @@ bjd = data['BJD']
 def gauss(x, a, b, c, d):
     return a * np.exp(-(x-b)**2/(2 * c**2)) + d
 
+def inv_gauss(x, a, b, c, d):
+    return -(a * np.exp(-(x-b)**2/(2 * c**2))) + d
+
 print("Fitting gaussians...")
 time.sleep(0.5)
 vels = []
@@ -63,13 +66,31 @@ OT_lines1 = np.vstack((lines1[0:7,:],lines1[-7:,:]))
 OT_gns1 = np.mean(OT_lines1,0)
 
 #Vi trækker dette gns. fra alle 'lines'
-norm_lines1 = lines1-OT_gns1
+norm_lines1 = lines1/OT_gns1
+
+# Vi fitter omvendte gaussfunktioner til alle de normerede linjer.
+RM_index = 30
+
+RM_vel1 = []
+RM_err1 = []
+for i in range(len(norm_lines1)):
+    line_max = np.where(1-norm_lines1[i] == np.max(1-norm_lines1[i][np.where((vel_vector > -100) & (vel_vector < 100))]))
+    norm_fit, norm_pcov = curve_fit(gauss, vel_vector, 1-norm_lines1[i],
+                                    bounds=([0.003,-100,1,-0.1],[0.02,100,20,0.1]),
+                                    p0=[0.006, vel_vector[line_max], 10, 0])
+    if i == RM_index:
+        index_fit = norm_fit
+    RM_vel1.append(norm_fit[1])
+    RM_err1.append(np.sqrt(np.diag(norm_pcov))[1])
+RM_vel1 = np.array(RM_vel1)
+RM_err1 = np.array(RM_err1)
 
 plt.figure()
-plt.plot(vel_vector,norm_lines1[0])
-plt.plot(vel_vector,lines1[0])
-plt.plot(vel_vector,OT_gns1)
-plt.plot(vel_vector,norm_lines1[20])
+plt.plot(vel_vector,norm_lines1[20],'-',label='Normalized line IT')
+plt.plot(vel_vector,norm_lines1[0],':',label='Normalized line OOT')
+plt.plot(vel_vector,lines1[0],'-',label='Raw line OOT')
+plt.plot(vel_vector,OT_gns1,'--',label='Subtracted mean')
+plt.legend()
 plt.tight_layout()
 plt.show()
 
@@ -87,3 +108,17 @@ plt.xlabel('RV')
 plt.ylabel('Time [BJD]-2457939')
 plt.show()
 
+plt.figure()
+plt.plot(vel_vector, 1-norm_lines1[RM_index],'-',label='Normalized spectrum')
+plt.plot(vel_vector, gauss(vel_vector, *index_fit), '-',label='Fitted inverse gaussian')
+plt.xlabel('Velocities [km/s]')
+plt.ylabel('Normalized light')
+plt.tight_layout()
+plt.show()
+
+plt.figure()
+plt.errorbar(bjd1, RM_vel1, fmt='.', label='RM curve')
+plt.xlabel('Time [BJD]-2457939')
+plt.ylabel('Velocities [km/s]')
+plt.tight_layout()
+plt.show()

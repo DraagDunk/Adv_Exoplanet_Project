@@ -12,6 +12,7 @@ import matplotlib.cm as cm
 import random as rnd
 from scipy.optimize import curve_fit
 from rm_function import rm_function
+import matplotlib.animation as ani
 
 plt.close('all')
 
@@ -174,10 +175,9 @@ for i in range(len(X_p)):
     fig1.canvas.draw()
     fig1.canvas.flush_events()
     line2.set_ydata(L_sum_p[i])
-    fig2.canvas.draw()
     line3.set_ydata(gauss_func(RV_x, *gaussians[i]))
-    fig2.canvas.flush_events()
     line4.set_xdata([centroids_avg[i]/1000, centroids_avg[i]/1000])
+    fig2.canvas.draw()
     fig2.canvas.flush_events()
     
 # Plot Rossiter-McLaughlin kurve
