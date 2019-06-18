@@ -69,7 +69,7 @@ OT_gns1 = np.mean(OT_lines1,0)
 norm_lines1 = lines1/OT_gns1
 
 # Vi fitter omvendte gaussfunktioner til alle de normerede linjer.
-RM_index = 30
+RM_index = 40
 
 RM_vel1 = []
 RM_err1 = []
