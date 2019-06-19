@@ -12,6 +12,7 @@ from tqdm import tqdm
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+from rm_function import rm_function_fixed
 
 plt.close('all')
 
@@ -69,7 +70,7 @@ OT_gns1 = np.mean(OT_lines1,0)
 norm_lines1 = lines1/OT_gns1
 
 # Vi fitter omvendte gaussfunktioner til alle de normerede linjer.
-RM_index = 40
+RM_index = 10
 
 RM_vel1 = []
 RM_err1 = []
@@ -85,11 +86,19 @@ for i in range(len(norm_lines1)):
 RM_vel1 = np.array(RM_vel1)
 RM_err1 = np.array(RM_err1)
 
+#Fit Gaussian to out-of-transit mean CCF
+
+OT_fit, OT_pcov = curve_fit(gauss, vel_vector, OT_gns1)
+sys_vel = OT_fit[1]
+RM_vel1_cor = RM_vel1[9:-8]-sys_vel
+bjd1_cor = bjd1[9:-8]
+
 plt.figure()
 plt.plot(vel_vector,norm_lines1[20],'-',label='Normalized line IT')
 plt.plot(vel_vector,norm_lines1[0],':',label='Normalized line OOT')
 plt.plot(vel_vector,lines1[0],'-',label='Raw line OOT')
 plt.plot(vel_vector,OT_gns1,'--',label='Subtracted mean')
+plt.plot(vel_vector, gauss(vel_vector, *OT_fit),'--', label = 'Fit to Sub. mean')
 plt.legend()
 plt.tight_layout()
 plt.show()
@@ -100,7 +109,7 @@ locy = np.array([0,10,20,30,40])
 tick_laby = np.round(bjd1[locy]-2457939,2)
 
 plt.figure(figsize=(7,7))
-color_map = plt.imshow(norm_lines1[:,200:451], aspect = 'auto')
+color_map = plt.imshow(np.flipud(norm_lines1[:,200:451]), aspect = 'auto')
 color_map.set_cmap('gray')
 plt.xticks(locx,tick_labx)
 plt.yticks(locy,tick_laby)
@@ -118,7 +127,26 @@ plt.tight_layout()
 plt.show()
 
 plt.figure()
+plt.errorbar(bjd1_cor, RM_vel1_cor, yerr=RM_err1[9:-8], fmt='.k', label='RM curve, corr.')
 plt.errorbar(bjd1, RM_vel1, yerr=RM_err1, fmt='.', label='RM curve')
+plt.xlabel('Time [BJD]-2457939')
+plt.ylabel('Velocities [km/s]')
+plt.tight_layout()
+plt.show()
+
+mid_t = bjd1_cor[0] + 0.5*(bjd1_cor[-1] - bjd1_cor[0])
+bjd1_norm = bjd1_cor-mid_t
+
+rm_fit, rm_pcov = curve_fit(rm_function_fixed, bjd1_norm, RM_vel1_cor*1000,
+                            bounds = ([-70,75,90],[-30,90,130]),
+                            p0 = [-45,87,109])
+#%%
+
+#%%
+plt.figure()
+plt.errorbar(bjd1_cor, RM_vel1_cor*1000, yerr=RM_err1[9:-8], fmt='.k', label='RM curve, corr.')
+#plt.errorbar(bjd1, RM_vel1*, yerr=RM_err1, fmt='.', label='RM curve')
+plt.plot(bjd1_cor,rm_function_fixed(bjd1_norm,*rm_fit),'-', label='Fit')
 plt.xlabel('Time [BJD]-2457939')
 plt.ylabel('Velocities [km/s]')
 plt.tight_layout()

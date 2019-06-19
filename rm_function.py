@@ -204,16 +204,19 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
 #   argument of periapsis: degrees
 #   RV amplitude: km/s
 
-def rm_function_fixed(t, obl, incl, RV_amp, lim=401, return_option=2):
+# Return_option 4 returns array that can be fitted to data
+
+def rm_function_fixed(t, obl, incl, RV_amp, lim=401, return_option=4):
     
     # Define fixed parameters:
     t_p = 0
-    a = 4.756
+    a = 4.403
     e = 0
     m1 = 1.72
     m2 = 0.003532
     rad_rat = 0.0735
     omega = 90
+
     
     
     # Define values
@@ -380,7 +383,9 @@ def rm_function_fixed(t, obl, incl, RV_amp, lim=401, return_option=2):
         d_centroids_avg.append(d_avg_centroid)
     d_centroids = np.array(d_centroids)
     d_centroids_avg = np.array(d_centroids_avg)
-        
+    
+    d_centroids_avg[np.where(np.isnan(d_centroids_avg))]=0
+    
     if return_option == 0:
         return centroids, centroids_avg
     elif return_option == 1:
@@ -389,7 +394,8 @@ def rm_function_fixed(t, obl, incl, RV_amp, lim=401, return_option=2):
         return d_centroids, d_centroids_avg
     elif return_option == 3:
         return d_centroids, d_centroids_avg, d_gaussians, X, Y, RV_x, L_sum_dark, X_p, Y_p
-
+    elif return_option == 4:
+        return d_centroids_avg
 #t = np.linspace(-1,1, 200)
 ## t, t_p, a, e, m1, m2, rad_rat, obl, i, omega, RV_amp
 #RV = rm_function(t, 0, 2, 0.1, 1, 0.001, 0.5, 90, 0, 90, 0, 40)
