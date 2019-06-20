@@ -1,0 +1,12 @@
+SYSTEM PARAMETERS
+
+t_p = 0 (mid-transit is set to t=0)
+a = 4.756 R_*
+e = 0
+m_* = 1.72 M_sun
+m2 = 0.003532 M_sun = 3.7 M_jup
+R_p/R_* = 0.0735
+\lambda = variable
+i = variable
+\omega = 90 \degree
+v sin(i) = variable
