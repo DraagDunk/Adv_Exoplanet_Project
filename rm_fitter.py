@@ -67,7 +67,7 @@ OT_lines1 = np.vstack((lines1[0:7,:],lines1[-7:,:]))
 OT_gns1 = np.mean(OT_lines1,0)
 
 #Vi trækker dette gns. fra alle 'lines'
-norm_lines1 = lines1/OT_gns1
+norm_lines1 = lines1-OT_gns1
 
 # Vi fitter omvendte gaussfunktioner til alle de normerede linjer.
 RM_index = 10
@@ -75,8 +75,8 @@ RM_index = 10
 RM_vel1 = []
 RM_err1 = []
 for i in range(len(norm_lines1)):
-    line_max = np.where(1-norm_lines1[i] == np.max(1-norm_lines1[i][np.where((vel_vector > -100) & (vel_vector < 100))]))
-    norm_fit, norm_pcov = curve_fit(gauss, vel_vector, 1-norm_lines1[i],
+    line_max = np.where(0-norm_lines1[i] == np.max(0-norm_lines1[i][np.where((vel_vector > -100) & (vel_vector < 100))]))
+    norm_fit, norm_pcov = curve_fit(gauss, vel_vector, 0-norm_lines1[i],
                                     bounds=([0.003,-100,1,-0.1],[0.02,100,20,0.1]),
                                     p0=[0.006, vel_vector[line_max], 10, 0])
     if i == RM_index:
@@ -92,33 +92,26 @@ OT_fit, OT_pcov = curve_fit(gauss, vel_vector, OT_gns1)
 sys_vel = OT_fit[1]
 RM_vel1_cor = RM_vel1[9:-8]-sys_vel
 bjd1_cor = bjd1[9:-8]
-
+#%%
 plt.figure()
-plt.plot(vel_vector,norm_lines1[20],'-',label='Normalized line IT')
-plt.plot(vel_vector,norm_lines1[0],':',label='Normalized line OOT')
-plt.plot(vel_vector,lines1[0],'-',label='Raw line OOT')
-plt.plot(vel_vector,OT_gns1,'--',label='Subtracted mean')
-plt.plot(vel_vector, gauss(vel_vector, *OT_fit),'--', label = 'Fit to Sub. mean')
+plt.plot(vel_vector,lines1[0],'-',label='CCF OT')
+plt.plot(vel_vector,OT_gns1,'--',label='Mean CCF OT')
+plt.plot(vel_vector, gauss(vel_vector, *OT_fit),'--', label = 'Fit to mean')
+plt.plot(vel_vector,norm_lines1[20],'-',label='Norm. line IT')
+plt.plot(vel_vector,norm_lines1[0],':',label='Norm. line OOT')
 plt.legend()
 plt.tight_layout()
 plt.show()
+
+#%%
 
 locx = np.linspace(0,250,6)
 tick_labx = np.round(np.linspace(vel_vector[200],vel_vector[450],6),2)
 locy = np.array([0,10,20,30,40])
 tick_laby = np.round(bjd1[locy]-2457939,2)
 
-plt.figure(figsize=(7,7))
-color_map = plt.imshow(np.flipud(norm_lines1[:,200:451]), aspect = 'auto')
-color_map.set_cmap('gray')
-plt.xticks(locx,tick_labx)
-plt.yticks(locy,tick_laby)
-plt.xlabel('RV')
-plt.ylabel('Time [BJD]-2457939')
-plt.show()
-
 plt.figure()
-plt.plot(vel_vector, 1-norm_lines1[RM_index],'-',label='Normalized spectrum')
+plt.plot(vel_vector, 0-norm_lines1[RM_index],'-',label='Normalized spectrum')
 plt.plot(vel_vector, gauss(vel_vector, *index_fit), '-',label='Fitted inverse gaussian')
 plt.xlabel('Velocities [km/s]')
 plt.ylabel('Normalized light')
@@ -151,3 +144,31 @@ plt.xlabel('Time [BJD]-2457939')
 plt.ylabel('Velocities [km/s]')
 plt.tight_layout()
 plt.show()
+
+#%%
+#plt.close('all')
+
+plt.figure()
+for i in range(len(lines1)):
+    plt.plot(vel_vector,lines1[i]+0.01*i,'-k')
+plt.xlabel('Radial Velocity, [km/s]')
+plt.ylabel('CCF')
+plt.title('All CCFs')
+plt.yticks([],[])
+plt.tight_layout()
+plt.savefig('All_CCFs.png')
+plt.show()
+
+plt.figure(figsize=(7,7))
+color_map = plt.imshow(np.flipud(norm_lines1[:,200:451]), aspect = 'auto')
+color_map.set_cmap('gray')
+plt.xticks(locx,tick_labx-round(sys_vel,2))
+plt.yticks(locy,tick_laby)
+plt.xlabel('RV')
+plt.ylabel('Time [BJD]-2457939')
+#plt.savefig('Colormap.png')
+plt.show()
+
+
+
+
