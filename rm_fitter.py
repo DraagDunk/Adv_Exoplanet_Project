@@ -32,36 +32,54 @@ def inv_gauss(x, a, b, c, d):
 
 print("Fitting gaussians...")
 time.sleep(0.5)
+#%%
 vels = []
 v_unc = []
 for i in tqdm(range(len(lines))):
     fit, pov = curve_fit(gauss, vel_vector, lines[i])
-    if i == 6:
+    if i == 10:
         plt.figure()
         plt.plot(vel_vector, lines[i], 'r-', label='Data')
-        plt.plot(np.linspace(-200, 200, 1000), gauss(np.linspace(-200, 200, 1000), *fit), 'b--', label='Gaussian fit')
+        plt.plot(np.linspace(vel_vector[0],vel_vector[-1], 1000), 
+                gauss(np.linspace(vel_vector[0],vel_vector[-1], 1000), *fit), 'b--', label='Gaussian fit')
         plt.xlabel('Velocity [km/s]')
         plt.ylabel('CCF')
+        plt.xlim([vel_vector[0],vel_vector[-1]])
+        plt.title('CCF during transit')
         plt.legend()
         plt.tight_layout()
+        #plt.savefig('figures/CCF_it_fit.png')
         plt.show()
     vels.append(fit[1])
     v_unc.append(np.sqrt(np.diag(pov))[1])
 vels = np.array(vels)
+v_unc = np.array(v_unc)
 
-plt.figure()
-plt.errorbar(bjd, vels, yerr=v_unc, fmt='r.')
-plt.xlabel('BJD')
-plt.ylabel('Velocity [km/s]')
-plt.tight_layout()
-plt.show()
+#%%
 
 #Vi splitter data op i de to observerede transitter
 bjd1 = bjd[np.where(bjd < 2457950)]
 bjd2 = bjd[np.where(bjd > 2457950)]
 lines1 = lines[np.where(bjd < 2457950)]
 lines2 = lines[np.where(bjd > 2457950)]
+vels1 = vels[np.where(bjd < 2457950)]
+vels2 = vels[np.where(bjd > 2457950)]
+yerr1 = v_unc[np.where(bjd < 2457950)]
+yerr2 = v_unc[np.where(bjd > 2457950)]
 
+plt.figure(figsize = (7,4))
+plt.subplot(1,2,1)
+plt.errorbar(bjd1, vels1, yerr=yerr1, fmt='r.')
+plt.xlabel('BJD')
+plt.ylabel('Velocity [km/s]')
+plt.subplot(1,2,2)
+plt.errorbar(bjd2, vels2, yerr=yerr2, fmt='r.')
+plt.xlabel('BJD')
+plt.suptitle('CCF centroids')
+plt.savefig('figures/ccf_centroids.png')
+plt.show()
+
+#%%
 #Vi tager et gns. af alle 'lines' der vurderes til at ligge uden for transitten
 OT_lines1 = np.vstack((lines1[0:7,:],lines1[-7:,:]))
 OT_gns1 = np.mean(OT_lines1,0)
@@ -70,7 +88,7 @@ OT_gns1 = np.mean(OT_lines1,0)
 norm_lines1 = lines1-OT_gns1
 
 # Vi fitter omvendte gaussfunktioner til alle de normerede linjer.
-RM_index = 10
+RM_index = 20
 
 RM_vel1 = []
 RM_err1 = []
@@ -93,14 +111,25 @@ sys_vel = OT_fit[1]
 RM_vel1_cor = RM_vel1[9:-8]-sys_vel
 bjd1_cor = bjd1[9:-8]
 #%%
-plt.figure()
+plt.figure(figsize=(8,5))
+plt.subplot(2,1,1)
 plt.plot(vel_vector,lines1[0],'-',label='CCF OT')
 plt.plot(vel_vector,OT_gns1,'--',label='Mean CCF OT')
 plt.plot(vel_vector, gauss(vel_vector, *OT_fit),'--', label = 'Fit to mean')
+plt.legend()
+plt.xlim([vel_vector[0],vel_vector[-1]])
+plt.xticks([],[])
+plt.title('Raw and Normalized CCFs')
+plt.ylabel('CCF')
+plt.subplot(2,1,2)
 plt.plot(vel_vector,norm_lines1[20],'-',label='Norm. line IT')
 plt.plot(vel_vector,norm_lines1[0],':',label='Norm. line OOT')
+plt.xlim([vel_vector[0],vel_vector[-1]])
 plt.legend()
-plt.tight_layout()
+plt.xlabel('RV [km/s]')
+plt.ylabel('Norm. CCF')
+plt.subplots_adjust(hspace=0)
+#plt.savefig('figures/ccfs_norm.png')
 plt.show()
 
 #%%
@@ -110,26 +139,32 @@ tick_labx = np.round(np.linspace(vel_vector[200],vel_vector[450],6),2)
 locy = np.array([0,10,20,30,40])
 tick_laby = np.round(bjd1[locy]-2457939,2)
 
-plt.figure()
-plt.plot(vel_vector, 0-norm_lines1[RM_index],'-',label='Normalized spectrum')
-plt.plot(vel_vector, gauss(vel_vector, *index_fit), '-',label='Fitted inverse gaussian')
-plt.xlabel('Velocities [km/s]')
-plt.ylabel('Normalized light')
+plt.figure(figsize=(8,5))
+plt.plot(vel_vector, 0-norm_lines1[20],'-',label='Norm. CCF')
+plt.plot(vel_vector, gauss(vel_vector, *index_fit), '-',label='Gaussian fit')
+plt.xlabel('RV [km/s]')
+plt.ylabel('Norm. CCF')
 plt.legend()
+plt.title('Fit to inv. norm. CCFs')
 plt.tight_layout()
+plt.savefig('figures/fitted_ccf.png')
 plt.show()
-
+#%%
 plt.figure()
 plt.errorbar(bjd1_cor, RM_vel1_cor, yerr=RM_err1[9:-8], fmt='.k', label='RM curve, corr.')
-plt.errorbar(bjd1, RM_vel1, yerr=RM_err1, fmt='.', label='RM curve')
-plt.xlabel('Time [BJD]-2457939')
+#plt.errorbar(bjd1, RM_vel1, yerr=RM_err1, fmt='.', label='RM curve')
+plt.plot([bjd1[0]-0.02,bjd1[-1]+0.02],[0,0],'--k',linewidth=1)
+plt.xlim([bjd1[0]-0.02,bjd1[-1]+0.02])
+plt.ylim([min(RM_vel1)-5,max(RM_vel1)+5])
+plt.xlabel('Time [BJD]')
 plt.ylabel('Velocities [km/s]')
-plt.tight_layout()
+plt.title('RM Curve, Shifted IT CCFs')
+#plt.savefig('figures/RM_shift.png')
 plt.show()
 
 mid_t = bjd1_cor[0] + 0.5*(bjd1_cor[-1] - bjd1_cor[0])
 bjd1_norm = bjd1_cor-mid_t
-
+#%%
 rm_fit, rm_pcov = curve_fit(rm_function_fixed, bjd1_norm, RM_vel1_cor*1000,
                             bounds = ([-70,75,90],[-30,90,130]),
                             p0 = [-45,87,109])
@@ -156,7 +191,8 @@ plt.ylabel('CCF')
 plt.title('All CCFs')
 plt.yticks([],[])
 plt.tight_layout()
-plt.savefig('All_CCFs.png')
+plt.xlim([vel_vector[0],vel_vector[-1]])
+plt.savefig('figures/All_CCFs.png')
 plt.show()
 
 plt.figure(figsize=(7,7))
@@ -166,7 +202,7 @@ plt.xticks(locx,tick_labx-round(sys_vel,2))
 plt.yticks(locy,tick_laby)
 plt.xlabel('RV')
 plt.ylabel('Time [BJD]-2457939')
-#plt.savefig('Colormap.png')
+plt.savefig('figures/Colormap.png')
 plt.show()
 
 
