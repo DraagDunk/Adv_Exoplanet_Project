@@ -1,6 +1,9 @@
 \documentclass[show notes]{beamer}
 \usetheme{Rochester}
 
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{ gensymb }
@@ -70,7 +73,29 @@
 
 \begin{frame}
 \frametitle{Keplers Equations}	
-	
+
+To get $r(t)$:
+
+Calculate mean anomaly:
+\begin{equation*}
+M(t) = \sqrt{\frac{G (M_\star + M_p)}{a^3}} \cdot (t - t_p).
+\end{equation*}
+
+Calculate eccentric anomaly by numerical iteration:
+\begin{equation*}
+E_{n+1} = E_n - \frac{E_n - e sin(E_n) - M(t)}{1 - e sin(E-n)}.
+\end{equation*}
+
+Calculate true anomaly:
+\begin{equation*}
+\nu(t) = 2 \tan^{-1}( \left(\frac{1+e}{1-e}\right)^{1/2} \tan(E(t)/2) ).
+\end{equation*}
+
+Calculate separation:
+\begin{equation*}
+r(t) = a \frac{1 - e^2}{1 + e cos(\nu(t)}.
+\end{equation*}
+
 \end{frame}
 
 
@@ -83,7 +108,7 @@
 		Keplers equation is solved for input parameters.\\
 
 		The path is determined by:\\
-		 $ a $, $ e $, $ i $, $ \omega $, $ M_{\star} $, $ M_p $, $ t_p $, $ \lambda $, $ R_p/R_{\star} $ and $ v\sin(i) $.\\
+		 $ a $, $ e $, $ i $, $ \omega $, $ M_{\star} $, $ M_p $, $ t_p $, $ \lambda $, $ R_p/R_{\star} $ and $ v\sin(i_{\star}) $.\\
 		
 		Much more resource heavy, but also correct
 		
@@ -98,6 +123,22 @@
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Modelling Planet Orbit}
+Calculate projected coordinates of the planet:
+
+\begin{align*}
+X_i& = -r cos(\omega + \nu), \\
+Y_i& = -r sin(\omega + \nu) cos(i).
+\end{align*}
+
+\begin{align*}
+X& = X_i cos(\lambda) + Y_i sin(\lambda), \\
+Y& = -X_i sin(\lambda) + Y_i cos(\lambda), \\
+Z& = r sin(\omega + \nu) sin(i).
+\end{align*}
+\end{frame}
+
 \note{Vi laver her antagelsen at transit midpunkt sker til tiden t=0, og at $ \omega=90 $, så i tilfældet hvor vi har en eccentricitet, vil transitten ske ved periapsis.}
 
 \begin{frame}
@@ -108,7 +149,21 @@
 \begin{frame}
 \frametitle{Our Model - Outputs}
 
-Så her tænker jeg at vi har selve RM-kurven. Så vi snakker noget om hvor fucked Gauss fittet er
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{../figures/animation1_rmcurve.png}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Our Model - Outputs}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{../figures/animation2_rmcurve.png}
+\end{figure}
+
 \end{frame}
 
 \begin{frame}
@@ -214,7 +269,26 @@ Så her tænker jeg at vi har selve RM-kurven. Så vi snakker noget om hvor fuck
 
 \begin{frame}
 \frametitle{The Fit - System Parameters}
-
+\begin{columns}
+	\column{0.5\textwidth}
+	Variables:
+	\begin{itemize}
+	\item $\lambda$
+	\item $\omega$
+	\item $v \sin(i_\star)$
+	\end{itemize}
+	\column{0.5\textwidth}
+	Constants:
+	\begin{itemize}
+	\item $t_p = 0$
+	\item $a = 4.756 R_\star$
+	\item $e = 0$
+	\item $M_\star = 1.72 M_\odot$
+	\item $M_p = 3.7 M_J$
+	\item $\frac{R_p}{R_\star} = 0.0735$
+	\item $\omega = 90 \degree$
+	\end{itemize}
+\end{columns}
 \end{frame}
 
 \begin{frame}

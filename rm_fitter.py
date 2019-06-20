@@ -172,9 +172,9 @@ rm_fit, rm_pcov = curve_fit(rm_function_fixed, bjd1_norm, RM_vel1_cor*1000,
 
 #%%
 plt.figure()
-plt.errorbar(bjd1_cor, RM_vel1_cor*1000, yerr=RM_err1[9:-8], fmt='.k', label='RM curve, corr.')
+plt.errorbar(bjd1_cor, RM_vel1_cor, yerr=RM_err1[9:-8], fmt='.k', label='RM curve, corr.')
 #plt.errorbar(bjd1, RM_vel1*, yerr=RM_err1, fmt='.', label='RM curve')
-plt.plot(bjd1_cor,rm_function_fixed(bjd1_norm,*rm_fit),'-', label='Fit')
+plt.plot(bjd1_cor,rm_function_fixed(bjd1_norm,*rm_fit)/1000,'-', label='Fit')
 plt.xlabel('Time [BJD]-2457939')
 plt.ylabel('Velocities [km/s]')
 plt.tight_layout()
