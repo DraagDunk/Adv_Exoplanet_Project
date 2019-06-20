@@ -18,11 +18,10 @@ from scipy.optimize import curve_fit
 #   inclination: degrees
 #   argument of periapsis: degrees
 #   RV amplitude: km/s
-def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401, return_option=2):
+def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, R, lim=401, return_option=2):
     
     # Define values
     G = 6.647 * 10**(-11) # m³ kg⁻¹ s⁻²
-    R = 695510000 # m
     # Recalculate parameters(enheder er på omregningsfaktorer)
     m1 = m1 * 2 * 10**30 # kg/m_sun
     m2 = m2 * 2 * 10**30 # kg/m_sun
@@ -33,6 +32,7 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
     omega = omega * (np.pi/180) # rad/deg
     incl = incl * (np.pi/180) # rad/deg
     RV_amp = RV_amp * 1000 # m/km
+    R = R
     
     # Calculate mean anomaly
     G_mu = G * m1 + G * m2
@@ -177,7 +177,7 @@ def rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, lim=401
     d_centroids = []
     d_centroids_avg = []
     for i in range(len(p_x)):
-        df, dfs = curve_fit(gauss_func, RV_x, L_sum_dark[i], p0=[12, 0, 50])
+        df, dfs = curve_fit(gauss_func, RV_x, L_sum_dark[i])
         d_gaussians.append(df)
         d_centroids.append(df[1])
         d_avg_centroid = np.sum(RV_amp*X_dark[i]/R)/len(X_dark[i])
@@ -210,7 +210,7 @@ def rm_function_fixed(t, obl, incl, RV_amp, lim=401, return_option=4):
     
     # Define fixed parameters:
     t_p = 0
-    a = 4.403
+    a = 9.25
     e = 0
     m1 = 1.72
     m2 = 0.003532
@@ -221,7 +221,7 @@ def rm_function_fixed(t, obl, incl, RV_amp, lim=401, return_option=4):
     
     # Define values
     G = 6.647 * 10**(-11) # m³ kg⁻¹ s⁻²
-    R = 695510000 # m
+    R = 2.1 * 695510000 # m
     # Recalculate parameters(enheder er på omregningsfaktorer)
     m1 = m1 * 2 * 10**30 # kg/m_sun
     m2 = m2 * 2 * 10**30 # kg/m_sun
@@ -376,7 +376,7 @@ def rm_function_fixed(t, obl, incl, RV_amp, lim=401, return_option=4):
     d_centroids = []
     d_centroids_avg = []
     for i in range(len(p_x)):
-        df, dfs = curve_fit(gauss_func, RV_x, L_sum_dark[i], p0=[12, 0, 50])
+        df, dfs = curve_fit(gauss_func, RV_x, L_sum_dark[i])
         d_gaussians.append(df)
         d_centroids.append(df[1])
         d_avg_centroid = np.sum(RV_amp*X_dark[i]/R)/len(X_dark[i])

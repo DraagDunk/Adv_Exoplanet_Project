@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.22)  20 JUN 2019 19:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.22)  20 JUN 2019 21:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1359,10 +1359,21 @@ Package pdftex.def Info: ../figures/ccfs_norm.png used on input line 209.
 (pdftex.def)             Requested size: 307.28987pt x 192.05493pt.
  [15
 
- <../figures/ccfs_norm.png>] [16
+ <../figures/ccfs_norm.png>]
+<../figures/Colormap.png, id=444, 505.89pt x 505.89pt>
+File: ../figures/Colormap.png Graphic file (type png)
 
-]
-<../figures/All_CCFs.png, id=471, 462.528pt x 346.896pt>
+<use ../figures/Colormap.png>
+Package pdftex.def Info: ../figures/Colormap.png used on input line 218.
+(pdftex.def)             Requested size: 307.28987pt x 307.29561pt.
+
+Overfull \vbox (98.88649pt too high) detected at line 218
+ []
+
+[16
+
+ <../figures/Colormap.png>]
+<../figures/All_CCFs.png, id=473, 462.528pt x 346.896pt>
 File: ../figures/All_CCFs.png Graphic file (type png)
 
 <use ../figures/All_CCFs.png>
@@ -1371,7 +1382,7 @@ Package pdftex.def Info: ../figures/All_CCFs.png used on input line 228.
  [17
 
  <../figures/All_CCFs.png>]
-<../figures/fitted_ccf.png, id=499, 578.16pt x 361.35pt>
+<../figures/fitted_ccf.png, id=501, 578.16pt x 361.35pt>
 File: ../figures/fitted_ccf.png Graphic file (type png)
 
 <use ../figures/fitted_ccf.png>
@@ -1380,7 +1391,7 @@ Package pdftex.def Info: ../figures/fitted_ccf.png used on input line 238.
  [18
 
  <../figures/fitted_ccf.png>]
-<../figures/RM_all_CCFs.png, id=527, 462.528pt x 346.896pt>
+<../figures/RM_all_CCFs.png, id=529, 462.528pt x 346.896pt>
 File: ../figures/RM_all_CCFs.png Graphic file (type png)
 
 <use ../figures/RM_all_CCFs.png>
@@ -1389,7 +1400,7 @@ Package pdftex.def Info: ../figures/RM_all_CCFs.png used on input line 247.
  [19
 
  <../figures/RM_all_CCFs.png>]
-<../figures/RM_all_shift.png, id=556, 462.528pt x 346.896pt>
+<../figures/RM_all_shift.png, id=558, 462.528pt x 346.896pt>
 File: ../figures/RM_all_shift.png Graphic file (type png)
 
 <use ../figures/RM_all_shift.png>
@@ -1398,7 +1409,7 @@ Package pdftex.def Info: ../figures/RM_all_shift.png used on input line 257.
  [20
 
  <../figures/RM_all_shift.png>]
-<../figures/RM_shift.png, id=584, 462.528pt x 346.896pt>
+<../figures/RM_shift.png, id=586, 462.528pt x 346.896pt>
 File: ../figures/RM_shift.png Graphic file (type png)
 
 <use ../figures/RM_shift.png>
@@ -1408,9 +1419,18 @@ Package pdftex.def Info: ../figures/RM_shift.png used on input line 266.
 
  <../figures/RM_shift.png>] [22
 
-] [23
+]
+<../figures/curve_fit_rmcurve.png, id=640, 462.528pt x 346.896pt>
+File: ../figures/curve_fit_rmcurve.png Graphic file (type png)
 
-] [24
+<use ../figures/curve_fit_rmcurve.png>
+Package pdftex.def Info: ../figures/curve_fit_rmcurve.png used on input line 30
+0.
+(pdftex.def)             Requested size: 276.559pt x 207.4299pt.
+ [23
+
+ <../figures/curve_fit_rmcurve.png>]
+[24
 
 ]
 \tf@nav=\write6
@@ -1422,12 +1442,11 @@ Package pdftex.def Info: ../figures/RM_shift.png used on input line 266.
 \tf@snm=\write8
 \openout8 = `"Adv. Exo Pres.snm"'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 304.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 304.
-
-(./Adv. Exo Pres.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 304.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 304.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 307.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 307.
+ (./Adv. Exo Pres.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 307.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 307.
 Package rerunfilecheck Info: File `"Adv. Exo Pres".out' has not changed.
 (rerunfilecheck)             Checksum: 6AC11F4FBB23CC7555A0526229EE094D;92.
 
@@ -1435,13 +1454,13 @@ Package rerunfilecheck Info: File `"Adv. Exo Pres".out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 304.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 307.
  ) 
 Here is how much of TeX's memory you used:
- 17617 strings out of 493029
- 333065 string characters out of 6136233
+ 17627 strings out of 493029
+ 333356 string characters out of 6136233
  413131 words of memory out of 5000000
- 20640 multiletter control sequences out of 15000+600000
+ 20648 multiletter control sequences out of 15000+600000
  14714 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,15n,55p,415b,614s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1457,10 +1476,10 @@ c/amsfonts/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
 0.pfb>
-Output written on "Adv. Exo Pres.pdf" (24 pages, 878908 bytes).
+Output written on "Adv. Exo Pres.pdf" (24 pages, 988220 bytes).
 PDF statistics:
- 743 PDF objects out of 1000 (max. 8388607)
+ 747 PDF objects out of 1000 (max. 8388607)
  665 compressed objects within 7 object streams
  65 named destinations out of 1000 (max. 500000)
- 129 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 139 words of extra memory for PDF output out of 10000 (max. 10000000)
 

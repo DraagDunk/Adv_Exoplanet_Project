@@ -18,7 +18,7 @@ plt.close('all')
 
 # Inputs:
 #   time: days
-#   semimajor axis: stellar radii
+#   semimajor axis: stellar radii (HUSK AT ÆNDRE RADIUS!!)
 #   mass: solar mass
 #   obliquity: degrees
 #   inclination: degrees
@@ -28,34 +28,35 @@ plt.close('all')
 # Kald rm_function med følgende parametre:
 # t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp
 
-t = np.linspace(-0.1,0.1, 200)
+t = np.linspace(-0.15,0.15, 400)
 # Parametre for vores data
-#t_p = 0
-#a = 4.756 #rnd.randint(20, 100)/10
-#e = 0#rnd.randint(0,30)/100
-#m1 = 1.72#rnd.randint(10,100)/10
-#m2 = 0.003532 #rnd.randint(1,1000)/1000
-#rad_rat = 0.0735 #rnd.randint(1,100)/200
-#obl = 70#rnd.randint(-180, 180)
-#incl = 87#rnd.randint(80, 100)
-#omega = 90
-#RV_amp = 109#rnd.randint(0,100)/10
+R = 2.1 * 695510000 # m
+t_p = 0
+a = 4.403#4.756#9.25 #rnd.randint(20, 100)/10
+e = 0#rnd.randint(0,30)/100
+m1 = 1.72#rnd.randint(10,100)/10
+m2 = 0.003532 #rnd.randint(1,1000)/1000
+rad_rat = 0.0735 #rnd.randint(1,100)/200
+obl = -70#rnd.randint(-180, 180)
+incl = 87#rnd.randint(80, 100)
+omega = 90
+RV_amp = 109#rnd.randint(0,100)/10
 
 # Tilfældige parametre
-t_p = 0
-a = 2.4#rnd.randint(20, 100)/10
-e = 0.3#rnd.randint(0,30)/100
-m1 = 1.1#rnd.randint(10,100)/10
-m2 = 0.123#rnd.randint(1,1000)/1000
-rad_rat = 0.1#rnd.randint(1,100)/200
-obl = -174#rnd.randint(-180, 180)
-incl = 85#rnd.randint(80, 100)
-omega = 90
-RV_amp = 8.5#rnd.randint(0,100)/10
+#t_p = 0
+#a = 2.4#rnd.randint(20, 100)/10
+#e = 0.3#rnd.randint(0,30)/100
+#m1 = 1.1#rnd.randint(10,100)/10
+#m2 = 0.123#rnd.randint(1,1000)/1000
+#rad_rat = 0.1#rnd.randint(1,100)/200
+#obl = -174#rnd.randint(-180, 180)
+#incl = 85#rnd.randint(80, 100)
+#omega = 90
+#RV_amp = 8.5#rnd.randint(0,100)/10
 
 #centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_option=1)
 #centroids, centroids_avg = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_option=2)
-centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, return_option=1)
+centroids, centroids_avg, gaussians, X, Y, RV_x, L_sum_p, X_p, Y_p = rm_function(t, t_p, a, e, m1, m2, rad_rat, obl, incl, omega, RV_amp, R, return_option=3)
 
 ## Give stjerneparametre
 #R = 1
@@ -196,7 +197,7 @@ for i in range(len(X_p)):
     
 # Plot Rossiter-McLaughlin kurve
 plt.figure()
-plt.plot(t, centroids, 'r-', label="Gaussian")
+#plt.plot(t, centroids, 'r-', label="Gaussian")
 plt.plot(t,centroids_avg,'b-', label="CoM")
 plt.title('Rossiter-McLaughlin Curve')
 plt.xlabel('Time')

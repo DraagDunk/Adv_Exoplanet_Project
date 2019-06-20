@@ -166,17 +166,22 @@ mid_t = bjd1_cor[0] + 0.5*(bjd1_cor[-1] - bjd1_cor[0])
 bjd1_norm = bjd1_cor-mid_t
 #%%
 rm_fit, rm_pcov = curve_fit(rm_function_fixed, bjd1_norm, RM_vel1_cor*1000,
-                            bounds = ([-70,75,90],[-30,90,130]),
-                            p0 = [-45,87,109])
+                            bounds = ([-70,75,90],[-20,90,130]),
+                            p0 = [-30,87,109])
 #%%
 
 #%%
+t_linspace = np.linspace(bjd1_cor[0]-0.1, bjd1_cor[-1]+0.1,1000)
+tzero_linspace = np.linspace(bjd1_norm[0]-0.1,bjd1_norm[-1]+0.1,1000)
+
 plt.figure()
 plt.errorbar(bjd1_cor, RM_vel1_cor, yerr=RM_err1[9:-8], fmt='.k', label='RM curve, corr.')
 #plt.errorbar(bjd1, RM_vel1*, yerr=RM_err1, fmt='.', label='RM curve')
-plt.plot(bjd1_cor,rm_function_fixed(bjd1_norm,*rm_fit)/1000,'-', label='Fit')
-plt.xlabel('Time [BJD]-2457939')
+plt.plot(t_linspace,rm_function_fixed(tzero_linspace,*rm_fit)/1000,'-', label='Fit')
+plt.title('Data fitted to three parameters')
+plt.xlabel('Time [BJD]')
 plt.ylabel('Velocities [km/s]')
+plt.legend()
 plt.tight_layout()
 plt.show()
 
