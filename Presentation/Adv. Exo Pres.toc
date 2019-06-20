@@ -1,4 +1,5 @@
 \beamer@endinputifotherversion {3.36pt}
 \select@language {english}
-\beamer@sectionintoc {1}{The RM Effect}{2}{0}{1}
+\beamer@sectionintoc {1}{The RM Effect}{3}{0}{1}
 \beamer@sectionintoc {2}{Our Model}{5}{0}{2}
+\beamer@sectionintoc {3}{The Fit}{22}{0}{3}

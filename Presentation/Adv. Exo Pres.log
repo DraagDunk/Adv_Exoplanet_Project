@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.22)  20 JUN 2019 21:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.22)  20 JUN 2019 21:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1249,53 +1249,60 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<../figures/Transit.jpg, id=52, 1243.64626pt x 930.47626pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Adv. Exo Pres.toc)
+[2
+
+] <../figures/Transit.jpg, id=86, 1243.64626pt x 930.47626pt>
 File: ../figures/Transit.jpg Graphic file (type jpg)
 
 <use ../figures/Transit.jpg>
-Package pdftex.def Info: ../figures/Transit.jpg used on input line 33.
+Package pdftex.def Info: ../figures/Transit.jpg used on input line 37.
 (pdftex.def)             Requested size: 215.10196pt x 160.93326pt.
- [2
+ [3
 
  <../figures/Transit.jpg>]
-<../figures/winnwhites.jpg, id=82, 1204.5pt x 511.9125pt>
+<../figures/winnwhites.jpg, id=114, 1204.5pt x 511.9125pt>
 File: ../figures/winnwhites.jpg Graphic file (type jpg)
 
 <use ../figures/winnwhites.jpg>
-Package pdftex.def Info: ../figures/winnwhites.jpg used on input line 43.
+Package pdftex.def Info: ../figures/winnwhites.jpg used on input line 47.
 (pdftex.def)             Requested size: 307.28987pt x 130.59454pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 43.
+LaTeX Font Info:    Try loading font information for U+msa on input line 47.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 43.
+LaTeX Font Info:    Try loading font information for U+msb on input line 47.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 43.
+line 47.
 
 (/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )
-[3
+[4
 
- <../figures/winnwhites.jpg>] [4
+ <../figures/winnwhites.jpg>]
+<../figures/linear_model.png, id=144, 803.0pt x 602.25pt>
+File: ../figures/linear_model.png Graphic file (type png)
 
-] [5
+<use ../figures/linear_model.png>
+Package pdftex.def Info: ../figures/linear_model.png used on input line 74.
+(pdftex.def)             Requested size: 153.64493pt x 115.22818pt.
+ [5
 
-] [6
+ <../figures/linear_model.png>] [6
 
 ]
-<../figures/kepler.png, id=195, 965.6075pt x 686.565pt>
+<../figures/kepler.png, id=205, 965.6075pt x 686.565pt>
 File: ../figures/kepler.png Graphic file (type png)
 
 <use ../figures/kepler.png>
-Package pdftex.def Info: ../figures/kepler.png used on input line 124.
+Package pdftex.def Info: ../figures/kepler.png used on input line 127.
 (pdftex.def)             Requested size: 153.64493pt x 109.24503pt.
  [7
 
@@ -1304,128 +1311,128 @@ Package pdftex.def Info: ../figures/kepler.png used on input line 124.
 ] [9
 
 ]
-<../figures/animation1_rmcurve.png, id=276, 462.528pt x 346.896pt>
+<../figures/animation1_rmcurve.png, id=285, 462.528pt x 346.896pt>
 File: ../figures/animation1_rmcurve.png Graphic file (type png)
 
 <use ../figures/animation1_rmcurve.png>
 Package pdftex.def Info: ../figures/animation1_rmcurve.png used on input line 1
-57.
+60.
 (pdftex.def)             Requested size: 276.559pt x 207.4299pt.
  [10
 
- <../figures/animation1_rmcurve.png>] <../figures/animation2_rmcurve.png, id=30
-3, 462.528pt x 346.896pt>
+ <../figures/animation1_rmcurve.png>] <../figures/animation2_rmcurve.png, id=31
+2, 462.528pt x 346.896pt>
 File: ../figures/animation2_rmcurve.png Graphic file (type png)
 
 <use ../figures/animation2_rmcurve.png>
 Package pdftex.def Info: ../figures/animation2_rmcurve.png used on input line 1
-67.
+70.
 (pdftex.def)             Requested size: 276.559pt x 207.4299pt.
  [11
 
- <../figures/animation2_rmcurve.png>] <../figures/CCF_it.png, id=330, 462.528pt
+ <../figures/animation2_rmcurve.png>] <../figures/CCF_it.png, id=339, 462.528pt
  x 346.896pt>
 File: ../figures/CCF_it.png Graphic file (type png)
 
 <use ../figures/CCF_it.png>
-Package pdftex.def Info: ../figures/CCF_it.png used on input line 182.
+Package pdftex.def Info: ../figures/CCF_it.png used on input line 187.
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
  [12
 
  <../figures/CCF_it.png>]
-<../figures/CCF_it_fit.png, id=359, 462.528pt x 346.896pt>
+<../figures/CCF_it_fit.png, id=368, 462.528pt x 346.896pt>
 File: ../figures/CCF_it_fit.png Graphic file (type png)
 
 <use ../figures/CCF_it_fit.png>
-Package pdftex.def Info: ../figures/CCF_it_fit.png used on input line 191.
+Package pdftex.def Info: ../figures/CCF_it_fit.png used on input line 196.
 (pdftex.def)             Requested size: 245.83282pt x 184.37802pt.
  [13
 
  <../figures/CCF_it_fit.png>]
-<../figures/ccf_centroids.png, id=388, 505.89pt x 289.08pt>
+<../figures/ccf_centroids.png, id=397, 505.89pt x 289.08pt>
 File: ../figures/ccf_centroids.png Graphic file (type png)
 
 <use ../figures/ccf_centroids.png>
-Package pdftex.def Info: ../figures/ccf_centroids.png used on input line 200.
+Package pdftex.def Info: ../figures/ccf_centroids.png used on input line 205.
 (pdftex.def)             Requested size: 307.28987pt x 175.59749pt.
  [14
 
  <../figures/ccf_centroids.png>]
-<../figures/ccfs_norm.png, id=416, 578.16pt x 361.35pt>
+<../figures/ccfs_norm.png, id=425, 578.16pt x 361.35pt>
 File: ../figures/ccfs_norm.png Graphic file (type png)
 
 <use ../figures/ccfs_norm.png>
-Package pdftex.def Info: ../figures/ccfs_norm.png used on input line 209.
+Package pdftex.def Info: ../figures/ccfs_norm.png used on input line 214.
 (pdftex.def)             Requested size: 307.28987pt x 192.05493pt.
  [15
 
  <../figures/ccfs_norm.png>]
-<../figures/Colormap.png, id=444, 505.89pt x 505.89pt>
+<../figures/Colormap.png, id=453, 505.89pt x 505.89pt>
 File: ../figures/Colormap.png Graphic file (type png)
 
 <use ../figures/Colormap.png>
-Package pdftex.def Info: ../figures/Colormap.png used on input line 218.
-(pdftex.def)             Requested size: 307.28987pt x 307.29561pt.
+Package pdftex.def Info: ../figures/Colormap.png used on input line 223.
+(pdftex.def)             Requested size: 215.10196pt x 215.1046pt.
 
-Overfull \vbox (98.88649pt too high) detected at line 218
+Overfull \vbox (6.69548pt too high) detected at line 223
  []
 
 [16
 
  <../figures/Colormap.png>]
-<../figures/All_CCFs.png, id=473, 462.528pt x 346.896pt>
+<../figures/All_CCFs.png, id=482, 462.528pt x 346.896pt>
 File: ../figures/All_CCFs.png Graphic file (type png)
 
 <use ../figures/All_CCFs.png>
-Package pdftex.def Info: ../figures/All_CCFs.png used on input line 228.
+Package pdftex.def Info: ../figures/All_CCFs.png used on input line 233.
 (pdftex.def)             Requested size: 245.83282pt x 184.37802pt.
  [17
 
  <../figures/All_CCFs.png>]
-<../figures/fitted_ccf.png, id=501, 578.16pt x 361.35pt>
+<../figures/fitted_ccf.png, id=510, 578.16pt x 361.35pt>
 File: ../figures/fitted_ccf.png Graphic file (type png)
 
 <use ../figures/fitted_ccf.png>
-Package pdftex.def Info: ../figures/fitted_ccf.png used on input line 238.
+Package pdftex.def Info: ../figures/fitted_ccf.png used on input line 243.
 (pdftex.def)             Requested size: 307.28987pt x 192.05493pt.
  [18
 
  <../figures/fitted_ccf.png>]
-<../figures/RM_all_CCFs.png, id=529, 462.528pt x 346.896pt>
+<../figures/RM_all_CCFs.png, id=538, 462.528pt x 346.896pt>
 File: ../figures/RM_all_CCFs.png Graphic file (type png)
 
 <use ../figures/RM_all_CCFs.png>
-Package pdftex.def Info: ../figures/RM_all_CCFs.png used on input line 247.
+Package pdftex.def Info: ../figures/RM_all_CCFs.png used on input line 252.
 (pdftex.def)             Requested size: 245.83282pt x 184.37802pt.
  [19
 
  <../figures/RM_all_CCFs.png>]
-<../figures/RM_all_shift.png, id=558, 462.528pt x 346.896pt>
+<../figures/RM_all_shift.png, id=567, 462.528pt x 346.896pt>
 File: ../figures/RM_all_shift.png Graphic file (type png)
 
 <use ../figures/RM_all_shift.png>
-Package pdftex.def Info: ../figures/RM_all_shift.png used on input line 257.
+Package pdftex.def Info: ../figures/RM_all_shift.png used on input line 262.
 (pdftex.def)             Requested size: 245.83282pt x 184.37802pt.
  [20
 
  <../figures/RM_all_shift.png>]
-<../figures/RM_shift.png, id=586, 462.528pt x 346.896pt>
+<../figures/RM_shift.png, id=595, 462.528pt x 346.896pt>
 File: ../figures/RM_shift.png Graphic file (type png)
 
 <use ../figures/RM_shift.png>
-Package pdftex.def Info: ../figures/RM_shift.png used on input line 266.
+Package pdftex.def Info: ../figures/RM_shift.png used on input line 271.
 (pdftex.def)             Requested size: 245.83282pt x 184.37802pt.
  [21
 
  <../figures/RM_shift.png>] [22
 
 ]
-<../figures/curve_fit_rmcurve.png, id=640, 462.528pt x 346.896pt>
+<../figures/curve_fit_rmcurve.png, id=648, 462.528pt x 346.896pt>
 File: ../figures/curve_fit_rmcurve.png Graphic file (type png)
 
 <use ../figures/curve_fit_rmcurve.png>
 Package pdftex.def Info: ../figures/curve_fit_rmcurve.png used on input line 30
-0.
+5.
 (pdftex.def)             Requested size: 276.559pt x 207.4299pt.
  [23
 
@@ -1442,28 +1449,28 @@ Package pdftex.def Info: ../figures/curve_fit_rmcurve.png used on input line 30
 \tf@snm=\write8
 \openout8 = `"Adv. Exo Pres.snm"'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 307.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 307.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 312.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 312.
  (./Adv. Exo Pres.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 307.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 307.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 312.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 312.
 Package rerunfilecheck Info: File `"Adv. Exo Pres".out' has not changed.
-(rerunfilecheck)             Checksum: 6AC11F4FBB23CC7555A0526229EE094D;92.
+(rerunfilecheck)             Checksum: 542B575232C3884CF8EF90CB16CC488C;134.
 
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 307.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 312.
  ) 
 Here is how much of TeX's memory you used:
- 17627 strings out of 493029
- 333356 string characters out of 6136233
- 413131 words of memory out of 5000000
- 20648 multiletter control sequences out of 15000+600000
+ 17659 strings out of 493029
+ 334283 string characters out of 6136233
+ 413132 words of memory out of 5000000
+ 20677 multiletter control sequences out of 15000+600000
  14714 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,15n,55p,415b,614s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,15n,55p,415b,615s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texli
@@ -1476,10 +1483,10 @@ c/amsfonts/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
 0.pfb>
-Output written on "Adv. Exo Pres.pdf" (24 pages, 988220 bytes).
+Output written on "Adv. Exo Pres.pdf" (24 pages, 1044218 bytes).
 PDF statistics:
- 747 PDF objects out of 1000 (max. 8388607)
- 665 compressed objects within 7 object streams
+ 755 PDF objects out of 1000 (max. 8388607)
+ 671 compressed objects within 7 object streams
  65 named destinations out of 1000 (max. 500000)
- 139 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 152 words of extra memory for PDF output out of 10000 (max. 10000000)
 
