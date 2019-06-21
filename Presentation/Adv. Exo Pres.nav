@@ -1,18 +1,17 @@
-\beamer@endinputifotherversion {3.36pt}
 \headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
 \headcommand {\beamer@framepages {1}{1}}
 \headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
 \headcommand {\beamer@framepages {2}{2}}
-\headcommand {\sectionentry {1}{The RM Effect}{3}{The RM Effect}{0}}
 \headcommand {\beamer@sectionpages {1}{2}}
 \headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\sectionentry {1}{The RM Effect}{3}{The RM Effect}{0}}
 \headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
 \headcommand {\beamer@framepages {3}{3}}
 \headcommand {\slideentry {1}{0}{2}{4/4}{}{0}}
 \headcommand {\beamer@framepages {4}{4}}
-\headcommand {\sectionentry {2}{Our Model}{5}{Our Model}{0}}
 \headcommand {\beamer@sectionpages {3}{4}}
 \headcommand {\beamer@subsectionpages {3}{4}}
+\headcommand {\sectionentry {2}{Our Model}{5}{Our Model}{0}}
 \headcommand {\slideentry {2}{0}{1}{5/5}{}{0}}
 \headcommand {\beamer@framepages {5}{5}}
 \headcommand {\slideentry {2}{0}{2}{6/6}{}{0}}
@@ -47,17 +46,25 @@
 \headcommand {\beamer@framepages {20}{20}}
 \headcommand {\slideentry {2}{0}{17}{21/21}{}{0}}
 \headcommand {\beamer@framepages {21}{21}}
-\headcommand {\sectionentry {3}{The Fit}{22}{The Fit}{0}}
 \headcommand {\beamer@sectionpages {5}{21}}
 \headcommand {\beamer@subsectionpages {5}{21}}
+\headcommand {\sectionentry {3}{The Fit}{22}{The Fit}{0}}
 \headcommand {\slideentry {3}{0}{1}{22/22}{}{0}}
 \headcommand {\beamer@framepages {22}{22}}
 \headcommand {\slideentry {3}{0}{2}{23/23}{}{0}}
 \headcommand {\beamer@framepages {23}{23}}
 \headcommand {\slideentry {3}{0}{3}{24/24}{}{0}}
 \headcommand {\beamer@framepages {24}{24}}
-\headcommand {\beamer@partpages {1}{24}}
-\headcommand {\beamer@subsectionpages {22}{24}}
-\headcommand {\beamer@sectionpages {22}{24}}
-\headcommand {\beamer@documentpages {24}}
-\headcommand {\def \inserttotalframenumber {24}}
+\headcommand {\slideentry {3}{0}{4}{25/25}{}{0}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\slideentry {3}{0}{5}{26/26}{}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\slideentry {3}{0}{6}{27/27}{}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\slideentry {3}{0}{7}{28/28}{}{0}}
+\headcommand {\beamer@framepages {28}{28}}
+\headcommand {\beamer@partpages {1}{28}}
+\headcommand {\beamer@subsectionpages {22}{28}}
+\headcommand {\beamer@sectionpages {22}{28}}
+\headcommand {\beamer@documentpages {28}}
+\headcommand {\gdef \inserttotalframenumber {28}}

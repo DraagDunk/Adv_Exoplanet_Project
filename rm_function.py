@@ -221,7 +221,7 @@ def rm_function_fixed(t, obl, incl, RV_amp, lim=401, return_option=4):
     
     # Define values
     G = 6.647 * 10**(-11) # m³ kg⁻¹ s⁻²
-    R = 2.1 * 695510000 # m
+    R =  695510000 # m
     # Recalculate parameters(enheder er på omregningsfaktorer)
     m1 = m1 * 2 * 10**30 # kg/m_sun
     m2 = m2 * 2 * 10**30 # kg/m_sun

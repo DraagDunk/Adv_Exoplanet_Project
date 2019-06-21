@@ -134,10 +134,7 @@ plt.show()
 
 #%%
 
-locx = np.linspace(0,250,6)
-tick_labx = np.round(np.linspace(vel_vector[200],vel_vector[450],6),2)
-locy = np.array([0,10,20,30,40])
-tick_laby = np.round(bjd1[locy]-2457939,2)
+
 
 plt.figure(figsize=(8,5))
 plt.plot(vel_vector, 0-norm_lines1[20],'-',label='Norm. CCF')
@@ -167,12 +164,12 @@ bjd1_norm = bjd1_cor-mid_t
 #%%
 rm_fit, rm_pcov = curve_fit(rm_function_fixed, bjd1_norm, RM_vel1_cor*1000,
                             bounds = ([-70,75,90],[-20,90,130]),
-                            p0 = [-30,87,109])
+                            p0 = [-45,87,109])
 #%%
 
 #%%
-t_linspace = np.linspace(bjd1_cor[0]-0.1, bjd1_cor[-1]+0.1,1000)
-tzero_linspace = np.linspace(bjd1_norm[0]-0.1,bjd1_norm[-1]+0.1,1000)
+t_linspace = np.linspace(bjd1_cor[0]-0.03, bjd1_cor[-1]+0.03,200)
+tzero_linspace = np.linspace(bjd1_norm[0]-0.03,bjd1_norm[-1]+0.03,200)
 
 plt.figure()
 plt.errorbar(bjd1_cor, RM_vel1_cor, yerr=RM_err1[9:-8], fmt='.k', label='RM curve, corr.')
@@ -181,6 +178,7 @@ plt.plot(t_linspace,rm_function_fixed(tzero_linspace,*rm_fit)/1000,'-', label='F
 plt.title('Data fitted to three parameters')
 plt.xlabel('Time [BJD]')
 plt.ylabel('Velocities [km/s]')
+plt.xlim([bjd1_cor[0]-0.02,bjd1_cor[-1]+0.02])
 plt.legend()
 plt.tight_layout()
 plt.show()
@@ -200,9 +198,46 @@ plt.xlim([vel_vector[0],vel_vector[-1]])
 plt.savefig('figures/All_CCFs.png')
 plt.show()
 
+
+#%%
+per = 2.148780  #period in days
+t0_teo = 2457097.278    #T0 from archive
+n = int((mid_t-t0_teo)/per)
+t0 = t0_teo + n*per
+dur = 0.169 #Transit duration in days
+start_t = t0-dur/2
+end_t = t0+dur/2
+mid_t_index = np.where(abs(bjd1-t0)==min(abs(bjd1-t0)))[0][0]
+start_index = np.where(abs(bjd1-start_t)==min(abs(bjd1-start_t)))[0][0]
+end_index = np.where(abs(bjd1-end_t)==min(abs(bjd1-end_t)))[0][0]
+
+dur_full = (per/np.pi)*np.arcsin((0.00977/0.043)*np.sqrt((1+(0.15/2.1)**2)+0.23**2)/np.sin(np.deg2rad(87)))
+start_full = t0-dur_full/2
+end_full = t0+dur_full/2
+start_full_index = np.where(abs(bjd1-start_full)==min(abs(bjd1-start_full)))[0][0]
+end_full_index = np.where(abs(bjd1-end_full)==min(abs(bjd1-end_full)))[0][0]
+
+vel_cor = vel_vector[100:551]-sys_vel
+rm_max_index = np.where(abs(vel_cor-109)==min(abs(vel_cor-109)))[0][0]
+rm_min_index = np.where(abs(vel_cor+109)==min(abs(vel_cor+109)))[0][0]
+rm_mid_index = np.where(abs(vel_cor)==min(abs(vel_cor)))[0][0]
+
+locx = np.linspace(0,450,6)
+tick_labx = np.round(np.linspace(vel_cor[0],vel_vector[-1],6),2)
+locy = np.array([0,10,20,30,40])
+tick_laby = np.round(bjd1[locy]-2457939,2)
+
 plt.figure(figsize=(7,7))
-color_map = plt.imshow(np.flipud(norm_lines1[:,200:451]), aspect = 'auto')
+color_map = plt.imshow(np.flipud(norm_lines1[:,100:551]), aspect = 'auto')
 color_map.set_cmap('gray')
+plt.plot([0,len(norm_lines1[0,100:550])],[mid_t_index,mid_t_index],'--r')
+plt.plot([0,len(norm_lines1[0,100:550])],[start_index,start_index],'-k')
+plt.plot([0,len(norm_lines1[0,100:550])],[end_index,end_index],'-k')
+plt.plot([0,len(norm_lines1[0,100:550])],[start_full_index,start_full_index],'--k')
+plt.plot([0,len(norm_lines1[0,100:550])],[end_full_index,end_full_index],'--k')
+plt.plot([rm_max_index,rm_max_index],[0,len(norm_lines1)-1],'-r')
+plt.plot([rm_min_index,rm_min_index],[0,len(norm_lines1)-1],'-r')
+plt.plot([rm_mid_index,rm_mid_index],[0,len(norm_lines1)-1],'--r')
 plt.xticks(locx,tick_labx-round(sys_vel,2))
 plt.yticks(locy,tick_laby)
 plt.xlabel('RV')
